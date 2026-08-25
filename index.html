@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Business Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #14213B;
+    --navy-deep: #0C1730;
+    --gold: #C9A24B;
+    --gold-soft: #E4CE93;
+    --paper: #F6F3EC;
+    --ink: #22262F;
+    --ink-soft: #6B7280;
+    --line: #E2DCCB;
+    --radius: 18px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    min-height:100vh;
+    background: var(--paper);
+    font-family: 'Manrope', sans-serif;
+    color: var(--ink);
+  }
+
+  body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 32px 16px;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(201,162,75,0.10), transparent 45%),
+      radial-gradient(circle at 100% 100%, rgba(20,33,59,0.06), transparent 40%),
+      var(--paper);
+  }
+
+  .card{
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 30px 60px -25px rgba(12,23,48,0.35), 0 1px 0 rgba(12,23,48,0.04);
+    position: relative;
+    animation: rise 0.6s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(14px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .band{
+    background: linear-gradient(135deg, var(--navy-deep), var(--navy) 60%, #1c2c4d);
+    padding: 34px 28px 56px;
+    position: relative;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  /* Corner motif inspired by Omani geometric latticework */
+  .motif{
+    position:absolute;
+    top:-30px; right:-30px;
+    width: 150px; height: 150px;
+    opacity: 0.5;
+  }
+  .motif svg{ width:100%; height:100%; }
+
+  .eyebrow{
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+
+  .avatar{
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), #a97f2f);
+    color: var(--navy-deep);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: 28px;
+    border: 3px solid rgba(255,255,255,0.85);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 1;
+  }
+
+  .id-plate{
+    position: absolute;
+    bottom: -26px;
+    left: 28px;
+    right: 28px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 20px 14px;
+    box-shadow: 0 12px 30px -12px rgba(12,23,48,0.3);
+  }
+
+  .name{
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: var(--navy-deep);
+    line-height: 1.25;
+  }
+
+  .position{
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .company-block{
+    padding: 40px 28px 8px;
+    text-align: center;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .company-name{
+    font-size: 14.5px;
+    font-weight: 800;
+    color: var(--navy);
+    margin: 0 0 6px;
+    letter-spacing: 0.01em;
+  }
+
+  .company-tagline{
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+
+  .contact-list{
+    list-style: none;
+    margin: 0;
+    padding: 22px 24px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contact-item{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 8px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.15s ease;
+  }
+
+  .contact-item:hover, .contact-item:focus-visible{
+    background: #F7F2E4;
+    outline: none;
+  }
+
+  .icon{
+    width: 38px;
+    height: 38px;
+    flex: none;
+    border-radius: 10px;
+    background: var(--navy);
+    color: var(--gold-soft);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .icon svg{ width: 18px; height: 18px; }
+
+  .contact-text .label{
+    display:block;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    font-weight: 700;
+    margin-bottom: 1px;
+  }
+  .contact-text .value{
+    font-size: 14px;
+    font-weight: 600;
+    word-break: break-word;
+  }
+
+  .actions{
+    padding: 18px 24px 28px;
+  }
+
+  .save-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--navy-deep);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+  .save-btn:hover{ background: var(--navy); }
+  .save-btn:active{ transform: scale(0.98); }
+  .save-btn svg{ width: 17px; height: 17px; }
+
+  .footer-note{
+    text-align:center;
+    font-size: 11px;
+    color: var(--ink-soft);
+    padding: 0 24px 22px;
+  }
+
+  .state{
+    max-width: 380px;
+    text-align:center;
+    font-family: 'Manrope', sans-serif;
+    color: var(--ink-soft);
+    padding: 40px 20px;
+  }
+  .state.error{ color: #9B2C2C; }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="root">
+  <div class="state">Loading card…</div>
+</div>
+
+<script>
+async function loadEmployee(){
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id') || '10001';
+  const root = document.getElementById('root');
+
+  try{
+    const res = await fetch('data/employees.json', { cache: 'no-store' });
+    if(!res.ok) throw new Error('Could not load employee data');
+    const data = await res.json();
+    const emp = data[id];
+
+    if(!emp){
+      root.innerHTML = `<div class="state error">No profile found for ID "${escapeHtml(id)}".</div>`;
+      return;
+    }
+
+    render(emp);
+  }catch(err){
+    root.innerHTML = `<div class="state error">Something went wrong loading this card. Please try again later.</div>`;
+    console.error(err);
+  }
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function initials(name){
+  return name.split(' ').filter(Boolean).slice(0,2).map(w => w[0].toUpperCase()).join('');
+}
+
+function render(emp){
+  const root = document.getElementById('root');
+
+  const phoneHref = 'tel:' + emp.mobile.replace(/[^\d+]/g, '');
+  const emailHref = 'mailto:' + emp.email;
+  const waHref = 'https://wa.me/' + emp.mobile.replace(/[^\d]/g, '');
+  let websiteHref = emp.website || '';
+  if(websiteHref && !/^https?:\/\//i.test(websiteHref)) websiteHref = 'https://' + websiteHref;
+
+  root.innerHTML = `
+    <div class="card">
+      <div class="band">
+        <div class="motif">
+          <svg viewBox="0 0 150 150" fill="none">
+            <g stroke="#E4CE93" stroke-width="1" opacity="0.55">
+              <path d="M75 10 L110 45 L75 80 L40 45 Z"/>
+              <path d="M75 40 L140 105"/>
+              <path d="M75 40 L10 105"/>
+              <circle cx="75" cy="10" r="4" fill="#E4CE93" stroke="none"/>
+              <circle cx="140" cy="105" r="4" fill="#E4CE93" stroke="none"/>
+              <circle cx="10" cy="105" r="4" fill="#E4CE93" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+        <p class="eyebrow">Digital Business Card</p>
+        <div class="avatar">${initials(emp.name)}</div>
+        <div class="id-plate">
+          <p class="name">${escapeHtml(emp.name)}</p>
+          <p class="position">${escapeHtml(emp.position)}</p>
+        </div>
+      </div>
+
+      <div class="company-block">
+        <p class="company-name">${escapeHtml(emp.company)}</p>
+        <p class="company-tagline">${escapeHtml(emp.companyTagline || '')}</p>
+      </div>
+
+      <ul class="contact-list">
+        <li>
+          <a class="contact-item" href="${phoneHref}">
+            <span class="icon">${icon('phone')}</span>
+            <span class="contact-text">
+              <span class="label">Mobile</span>
+              <span class="value">${escapeHtml(emp.mobile)}</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="contact-item" href="${waHref}" target="_blank" rel="noopener">
+            <span class="icon">${icon('whatsapp')}</span>
+            <span class="contact-text">
+              <span class="label">WhatsApp</span>
+              <span class="value">Message on WhatsApp</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="contact-item" href="${emailHref}">
+            <span class="icon">${icon('mail')}</span>
+            <span class="contact-text">
+              <span class="label">Email</span>
+              <span class="value">${escapeHtml(emp.email)}</span>
+            </span>
+          </a>
+        </li>
+        ${emp.website ? `
+        <li>
+          <a class="contact-item" href="${websiteHref}" target="_blank" rel="noopener">
+            <span class="icon">${icon('globe')}</span>
+            <span class="contact-text">
+              <span class="label">Website</span>
+              <span class="value">${escapeHtml(emp.website)}</span>
+            </span>
+          </a>
+        </li>` : ''}
+      </ul>
+
+      <div class="actions">
+        <button class="save-btn" id="saveBtn" type="button">
+          ${icon('download')}
+          Save Contact
+        </button>
+      </div>
+      <p class="footer-note">Scan &amp; connect — powered by a QR digital card</p>
+    </div>
+  `;
+
+  document.getElementById('saveBtn').addEventListener('click', () => downloadVCard(emp));
+}
+
+function icon(name){
+  const icons = {
+    phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+    whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.5 3.58 1.36 5.07L2 22l5.2-1.36a9.87 9.87 0 0 0 4.84 1.27h.005c5.46 0 9.91-4.45 9.91-9.91C21.955 6.45 17.5 2 12.04 2zm0 17.9h-.004a8.02 8.02 0 0 1-4.09-1.12l-.294-.174-3.03.795.81-2.955-.191-.303a7.98 7.98 0 0 1-1.223-4.24c0-4.43 3.6-8.03 8.03-8.03 2.147 0 4.164.836 5.68 2.353a7.98 7.98 0 0 1 2.35 5.68c0 4.43-3.6 8-8.03 8z"/></svg>',
+    mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6c0-1.1-.9-2-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6z"/><path d="m22 6-10 7L2 6"/></svg>',
+    globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+    download: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
+  };
+  return icons[name] || '';
+}
+
+function downloadVCard(emp){
+  const vcard = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    `FN:${emp.name}`,
+    `TITLE:${emp.position}`,
+    `ORG:${emp.company}`,
+    `TEL;TYPE=CELL:${emp.mobile}`,
+    `EMAIL:${emp.email}`,
+    emp.website ? `URL:${/^https?:\/\//i.test(emp.website) ? emp.website : 'https://' + emp.website}` : '',
+    'END:VCARD'
+  ].filter(Boolean).join('\n');
+
+  const blob = new Blob([vcard], { type: 'text/vcard' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${emp.name.replace(/\s+/g, '_')}.vcf`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+loadEmployee();
+</script>
+
+</body>
+</html>
